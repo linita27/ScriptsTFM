@@ -1,0 +1,56 @@
+
+*Plot of several GF saving images zoomed in intervals. Plot of different sets of GF changing depth and distance.
+
+*Changing depth
+
+*TSS
+
+color blue increment
+
+read *greenf_60*TSS*
+
+DO i = 1000, 3000, 1000
+
+  xlim $i (($i)+1000)
+  p2
+  saveimg 0.TSS.gf60.$i$.pdf
+
+ENDDO
+
+*ZSS
+
+read *greenf_60*ZSS*
+
+DO i = 1000, 3000, 1000
+
+  xlim $i (($i)+1000)
+  p2
+  saveimg 0.ZSS.gf60.$i$.pdf
+
+ENDDO
+
+*Changing distance
+
+*TSS
+
+read *_600000*TSS*
+
+DO j = 1000, 3000, 1000
+
+xlim $j (($j)+1000)
+p2
+saveimg 0.TSS.gf.$j$.dp_600000.pdf
+
+ENDDO
+
+*ZSS
+
+read *_600000*ZSS*
+
+DO j = 1000, 3000, 1000
+
+xlim $j (($j)+1000)
+p2
+saveimg 0.ZSS.gf.$j$.dp_600000.pdf
+
+ENDDO

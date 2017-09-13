@@ -1,0 +1,63 @@
+#!/bin/bash
+# Este comando lo lee aunque esté en comentario
+#
+# search for available recordings in directory
+for rec in `ls *SAC | awk -F. 'BEGIN {OFS=""}{print $2,".",$3}' `
+#
+# loop over recordings
+do
+#
+# extract current pole-zero file (without header)
+# Escribimos el fichero sin cabecera en un fichero temporal
+awk '{if ($1!="*") print $0}' SACPZ*rec* > SACPZ.TMP
+#
+# say where you are
+# echo-> te dice el registro que estamos tratando
+echo $rec
+#
+# start SAC. Redirigimos el script a SAC para que él ejecute las órdenes.
+# sac está esperando instrucciones hasta que le llegue una instrucción EOF (le podemos llamar de otra forma también a esta instrucción).
+sac << EOF
+# read start if file and store average amplitude. Corta desde el comienzo (b) hasta el comienzo más 50s (b +50)
+cut b b +50
+# r-> read. Lee los archivos que contienen esos campos.
+r *$rec*SAC
+# evaluate-> coge un valor de la cabecera y te lo almacena en una variable. Se pueden hacer pequeñas operaciones a la hora de almacenar la variable (ej. multiplicarla)
+# Guardamos como "level" la amplitud media de la primera traza (&1).
+evaluate to level &1,depmen
+#
+# read entire trace, subtract stored amplitude, remove instr. response
+# le decimos que deje de cortar (aquello de b b+50)
+cut off
+# volvemos a leer los datos
+r *$rec*SAC
+# restamos la amplitud media para que la traza comience alrededor de cero y evitar que haga una rampa al integrar (o intentarlo).
+# sub->substract (restar)
+sub %level
+# Corrección instrumental. (Sin filtro por ahora).
+trans from polezero subtype SACPZ.TMP to none
+#
+# Sacamos lo obtenido en un archivo. Disp-> desplazamiento. .SAC-> indicamos que es un fichero en formato SAC.
+# write output
+w OKHOTSK.$rec.P.DISP.SAC
+#
+# make velocity
+# Escribimos la traza en velocidad a partir de la que tenemos de desplazamiento derivando (dif).
+dif
+#La escribimos en otro fichero.
+w OKHOTSK.$rec.P.VELO.SAC
+#
+# quit SAC
+# Primero cerramos SAC para que no se queje si directamente le damos la orden EOF.
+quit
+# Finalmente le pasamos la instrucción final que indica fin de procesos en SAC.
+EOF
+#
+# next record
+done
+#
+
+
+----------------
+
+chmod u+x 0_preprocesado_P.bash

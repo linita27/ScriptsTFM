@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#This script plots in SAC several files together. Takes an image of the final plot in zoomed intervals specified in the cycle.
+
+sac <<EOF
+
+read *greenf_60*TSS*
+color blue increment
+p2
+
+DO i = 1000, 5000, {,1000}
+
+  xlim i i+1000
+  p2
+  saveimg gf60_$i.pdf
+
+ENDDO
+
+quit
+EOF

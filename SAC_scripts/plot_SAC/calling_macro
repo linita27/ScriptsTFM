@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#Calls SAC and  do what is specified in the macro file.
+
+sac <<EOF
+
+macro 0_macro2
+
+quit
+EOF

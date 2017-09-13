@@ -1,0 +1,30 @@
+#!/bin/csh
+
+
+#Specify directory where working and move there.
+set path_file = /home/lina/SAC/Z_SCRIPTS/my_path.txt
+set my_path = `cat $path_file`
+cd $my_path
+
+
+gmtset FRAME_WIDTH 0.04i
+gmtset TICK_LENGTH  0.04i
+gmtset ANOT_FONT_SIZE 12
+gmtset LABEL_FONT_SIZE 12
+gmtset HEADER_FONT_SIZE 16
+# Set the output file
+set psfile = ./0_okhotsk_firstmap.ps
+# Start the map and add Coastline and National Boundaries
+pscoast -R0/360/-90/90 -JA153.39/54.82/16 -Y10 -K -G254 -S225 -W1 -Dc -P -V  -B15g15 -A10/0/1 >! $psfile
+# plot station names and triangles
+awk '{print $3,$2,"8 0 0 0",substr($1,2,length($1)-2)}' coord_list.lst | pstext -N -O -K -R -D0.1/0 -JA  >> $psfile
+#awk '{print substr($1,2,length($1)-2),$2,$3}' coord_list_fea.lst >  coord_list_bonita.lst
+awk '{print $3,$2}' coord_list.lst | psxy -O -R -N  -JA -St.2 -W3 -K -G0  >> $psfile
+# plot epicenter
+psxy -O -R  -JA -Sa1 -W3 -K -G100 << eof >> $psfile
+153.39 54.82
+eof
+# End the Postscript File
+psxy -R -J -O /dev/null >> $psfile
+#
+end

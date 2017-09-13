@@ -1,0 +1,151 @@
+#!/bin/csh
+
+#Specify directory where working and move there.
+set path_file = /home/lina/SAC/Z_SCRIPTS/my_path.txt
+set my_path = `cat $path_file`
+cd $my_path
+
+#GMT 4 to 5
+
+alias blockmean 'gmt blockmean'
+alias blockmedian 'gmt blockmedian'
+alias blockmode 'gmt blockmode'
+alias filter1d 'gmt filter1d'
+alias fitcircle 'gmt fitcircle'
+alias gmt2kml 'gmt gmt2kml'
+alias gmtconnect 'gmt gmtconnect'
+alias gmtconvert 'gmt gmtconvert'
+alias gmtdefaults 'gmt gmtdefaults'
+alias gmtget 'gmt gmtget'
+alias gmtinfo 'gmt gmtinfo'
+alias gmtmath 'gmt gmtmath'
+alias gmtselect 'gmt gmtselect'
+alias gmtset 'gmt gmtset'
+alias gmtsimplify 'gmt gmtsimplify'
+alias gmtspatial 'gmt gmtspatial'
+alias gmtvector 'gmt gmtvector'
+alias gmtwhich 'gmt gmtwhich'
+alias grd2cpt 'gmt grd2cpt'
+alias grd2rgb 'gmt grd2rgb'
+alias grd2xyz 'gmt grd2xyz'
+alias grdblend 'gmt grdblend'
+alias grdclip 'gmt grdclip'
+alias grdcontour 'gmt grdcontour'
+alias grdcut 'gmt grdcut'
+alias grdedit 'gmt grdedit'
+alias grdfft 'gmt grdfft'
+alias grdfilter 'gmt grdfilter'
+alias grdgradient 'gmt grdgradient'
+alias grdhisteq 'gmt grdhisteq'
+alias grdimage 'gmt grdimage'
+alias grdinfo 'gmt grdinfo'
+alias grdlandmask 'gmt grdlandmask'
+alias grdmask 'gmt grdmask'
+alias grdmath 'gmt grdmath'
+alias grdpaste 'gmt grdpaste'
+alias grdproject 'gmt grdproject'
+alias grdraster 'gmt grdraster'
+alias grdreformat 'gmt grdreformat'
+alias grdsample 'gmt grdsample'
+alias grdtrack 'gmt grdtrack'
+alias grdtrend 'gmt grdtrend'
+alias grdvector 'gmt grdvector'
+alias grdview 'gmt grdview'
+alias grdvolume 'gmt grdvolume'
+alias greenspline 'gmt greenspline'
+alias kml2gmt 'gmt kml2gmt'
+alias makecpt 'gmt makecpt'
+alias mapproject 'gmt mapproject'
+alias nearneighbor 'gmt nearneighbor'
+alias project 'gmt project'
+alias ps2raster 'gmt ps2raster'
+alias psbasemap 'gmt psbasemap'
+alias psclip 'gmt psclip'
+alias pscoast 'gmt pscoast'
+alias pscontour 'gmt pscontour'
+alias pshistogram 'gmt pshistogram'
+alias psimage 'gmt psimage'
+alias pslegend 'gmt pslegend'
+alias psmask 'gmt psmask'
+alias psrose 'gmt psrose'
+alias psscale 'gmt psscale'
+alias pstext 'gmt pstext'
+alias pswiggle 'gmt pswiggle'
+alias psxyz 'gmt psxyz'
+alias psxy 'gmt psxy'
+alias sample1d 'gmt sample1d'
+alias spectrum1d 'gmt spectrum1d'
+alias sph2grd 'gmt sph2grd'
+alias sphdistance 'gmt sphdistance'
+alias sphinterpolate 'gmt sphinterpolate'
+alias sphtriangulate 'gmt sphtriangulate'
+alias splitxyz 'gmt splitxyz'
+alias surface 'gmt surface'
+alias trend1d 'gmt trend1d'
+alias trend2d 'gmt trend2d'
+alias triangulate 'gmt triangulate'
+alias xyz2grd 'gmt xyz2grd'
+alias gshhg 'gmt gshhg'
+alias img2grd 'gmt img2grd'
+alias pscoupe 'gmt pscoupe'
+alias psmeca 'gmt psmeca'
+alias pspolar 'gmt pspolar'
+alias psvelo 'gmt psvelo'
+alias mgd77convert 'gmt mgd77convert'
+alias mgd77info 'gmt mgd77info'
+alias mgd77list 'gmt mgd77list'
+alias mgd77magref 'gmt mgd77magref'
+alias mgd77manage 'gmt mgd77manage'
+alias mgd77path 'gmt mgd77path'
+alias mgd77sniffer 'gmt mgd77sniffer'
+alias mgd77track 'gmt mgd77track'
+alias dimfilter 'gmt dimfilter'
+alias gmtgravmag3d 'gmt gmtgravmag3d'
+alias gravfft 'gmt gravfft'
+alias grdgravmag3d 'gmt grdgravmag3d'
+alias grdredpol 'gmt grdredpol'
+alias grdseamount 'gmt grdseamount'
+alias pssegyz 'gmt pssegyz'
+alias pssegy 'gmt pssegy'
+alias segy2grd 'gmt segy2grd'
+alias backtracker 'gmt backtracker'
+alias grdpmodeler 'gmt grdpmodeler'
+alias grdrotater 'gmt grdrotater'
+alias grdspotter 'gmt grdspotter'
+alias hotspotter 'gmt hotspotter'
+alias originator 'gmt originator'
+alias rotconverter 'gmt rotconverter'
+alias x2sys_binlist 'gmt x2sys_binlist'
+alias x2sys_cross 'gmt x2sys_cross'
+alias x2sys_datalist 'gmt x2sys_datalist'
+alias x2sys_get 'gmt x2sys_get'
+alias x2sys_init 'gmt x2sys_init'
+alias x2sys_list 'gmt x2sys_list'
+alias x2sys_merge 'gmt x2sys_merge'
+alias x2sys_put 'gmt x2sys_put'
+alias x2sys_report 'gmt x2sys_report'
+alias x2sys_solve 'gmt x2sys_solve'
+
+
+#Script START
+
+gmtset MAP_FRAME_WIDTH 0.04i
+gmtset MAP_TICK_LENGTH  0.04i
+gmtset FONT_ANNOT_PRIMARY 12
+gmtset FONT_LABEL 12
+gmtset FONT_TITLE 16
+# Set the output file
+set psfile = ./0_okhotsk_firstmap.ps
+# Start the map and add Coastline and National Boundaries
+pscoast -R0/360/-90/90 -JA153.39/54.82/16 -Y10 -K -G254 -S225 -W1 -Dc -P -V  -B15g15 -A10/0/1 >! $psfile
+# plot station names and triangles
+awk '{print $3,$2,"8 0 0 0",$1}' coord_list.lst | pstext -N -O -K -R -D0.1/0 -JA  >> $psfile
+awk '{print $3,$2}' coord_list.lst | psxy -O -R -N  -JA -St.2 -W3 -K -G0  >> $psfile
+# plot epicenter
+psxy -O -R  -JA -Sa1 -W3 -K -G100 << eof >> $psfile
+153.39 54.82
+eof
+# End the Postscript File
+psxy -R -J -O /dev/null >> $psfile
+#
+end

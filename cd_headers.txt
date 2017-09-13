@@ -1,0 +1,25 @@
+#Headers for changing directory
+
+#Perl
+
+use File::chdir;
+use Cwd;
+
+#Specify directory where working.
+my $my_path = path("/home/lina/SAC/Z_SCRIPTS/my_path.txt")->slurp;
+
+
+
+
+#Bash
+
+#Specify directory where working and move there.
+path=$(</home/lina/SAC/Z_SCRIPTS/my_path.txt)
+cd $path
+
+#CShell
+
+#Specify directory where working and move there.
+set path_file = /home/lina/SAC/Z_SCRIPTS/my_path.txt
+set my_path = `cat $path_file`
+cd $my_path

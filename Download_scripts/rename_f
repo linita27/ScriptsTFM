@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#****************************************************************************
+#This script renames files inside folders using folder name as a prefix.
+#The files it will rename are the ones named with the syntax specified at (1).
+#It also creates a new folder (2) and move all files from all folders into it.
+#****************************************************************************
+#Specify directory where working and move there.
+path=$(</home/lina/SAC/Z_SCRIPTS/my_path.txt)
+#echo "$path"
+cd $path
+
+mkdir GF 			#(2) Folder where all files will be stored after renaming.
+for i in $(ls); do                        # runs through the 'items' in this dir
+  if [ -d $i ]; then                      # if this is a dir
+     fname=${i##*/}                 # pick up the dir name which will be used as prefix
+     echo $fname
+     cd $i                                    # move into the dir
+     for z in green*.sac; do               # (1) loop over files starting with green and in .sac format
+       echo $z
+       cp $z ${fname}.${z}         # put the prefix to the file.
+       mv ${fname}.${z} ../GF   #moves the file to upper folder called GF
+     done
+     cd ..
+  fi
+done
